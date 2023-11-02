@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let isDrawing = false;
+        document.addEventListener('mousedown', function() {
+            isDrawing = true;
+        })
+
+        document.addEventListener('mouseup', function() {
+            isDrawing = false;
+        })
+        document.addEventListener('mousemove', function(e) {
+            if (isDrawing) {
+                const box = document.createElement('div');
+                box.style.position = 'absolute';
+
+                let size = Math.random()*100 + 10;
+
+                box.style.width = `${size}px`;
+                box.style.height = `${size}px`;
+                box.style.borderRadius = '10%';
+                box.style.backgroundColor = `rgb(${Math.random()*0+10}, ${Math.random()*0+10}, ${Math.random()*0+0})`;
+
+            box.style.top = `${e.clientY-(size/2)}px`;
+            box.style.left = `${e.clientX-(size/2)}px`;
+
+            document.body.appendChild(box);
+            setTimeout(function () {box.style.opacity='0'; 
+            box.style.display='none';
+            document.body.removeChild(box)},1000);
+            }
+            
+        });
+
+        let rotate = 0;
+
+
+function boxRotate() {
+    requestAnimationFrame(boxRotate);
+    //rotate++;
+    //console.log(rotate);
+
+    let boxes = document.querySelectorAll('div');
+    rotate += 3;
+    for (let i=0; i<boxes.length; i++) {
+        boxes[i].style.transform = `rotate(${rotate}deg)`;
+    }
+
+}
+
+boxRotate();
+        
+
+    </script>
+</body>
+</html>
